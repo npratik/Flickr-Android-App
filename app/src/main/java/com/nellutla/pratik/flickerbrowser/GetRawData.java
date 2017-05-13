@@ -20,11 +20,15 @@ enum DownloadStatus { IDLE, PROCESSING, NOT_INITIALISED, FAILED_OR_EMPTY, OK }
 class GetRawData extends AsyncTask<String,Void, String> {
 
     private static final String TAG = "GetRawData";
-    private final MainActivity mCallback;
+    //private final MainActivity mCallback;
+    private DownloadStatus mDownloadStatus;
+    private final OnDownloadComplete mCallback; //m -> memeber variable
 
-    private DownloadStatus mDownloadStatus; //m -> memeber variable
+    interface OnDownloadComplete {
+        void onDownloadComplete(String data, DownloadStatus status);
+    }
 
-    public GetRawData( MainActivity callback) {
+    public GetRawData( OnDownloadComplete callback) {
         this.mDownloadStatus = DownloadStatus.IDLE;
         mCallback = callback;
     }
@@ -32,6 +36,11 @@ class GetRawData extends AsyncTask<String,Void, String> {
     @Override
     protected void onPostExecute(String s) {
         Log.d(TAG, "onPostExecute: parameter =" + s);
+
+        if(mCallback!=null){
+            mCallback.onDownloadComplete(s,mDownloadStatus);
+        }
+        Log.d(TAG, "onPostExecute: end");
        // super.onPostExecute(s);
     }
 

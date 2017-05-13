@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GetRawData.OnDownloadComplete {
 
     private static final String TAG = "MainActivity";
 
@@ -62,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public  void DownloadComplete(String data , DownloadStatus status){
+    @Override
+    public  void onDownloadComplete(String data , DownloadStatus status){
         if(status==DownloadStatus.OK){
             Log.d(TAG, "DownloadComplete: data is " + data);
         }else {
