@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/sriram/AndroidStudioProjects/FlickerBrowser/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="311f70d2b301156798ecc2e999dd14d6178dd8d1">
+        <dex dex="/Users/sriram/AndroidStudioProjects/FlickerBrowser/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_1d19d59181e6a634b198aaea0ae53370924f9e49/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/sriram/AndroidStudioProjects/FlickerBrowser/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
+        <dex dex="/Users/sriram/AndroidStudioProjects/FlickerBrowser/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_df2fb55e942cd05ce0d78b649c128684d4f88e27/classes.dex" />
+    </item>
+
+</items>
