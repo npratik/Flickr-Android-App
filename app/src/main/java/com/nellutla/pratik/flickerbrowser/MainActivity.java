@@ -10,31 +10,34 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity implements GetRawData.OnDownloadComplete {
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements GetFlickrJsonData.OnDataAvailable {//GetRawData.OnDownloadComplete {
 
     private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         Log.d(TAG, "onCreate: starts");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
+//        GetRawData getRawData = new GetRawData(this);
+//        getRawData.execute("https://api.flickr.com/services/feeds/photos_public.gne?tags=android,nougat,sdk&tagmode=any&format=json&nojsoncallback=1");
 
-        GetRawData getRawData = new GetRawData(this);
-        getRawData.execute("https://api.flickr.com/services/feeds/photos_public.gne?tags=android,nagout,sdk&tagmode=any&format=json&nojsoncallback=1");
         Log.d(TAG, "onCreate: ends");
+    }
+
+    @Override
+    protected void onResume() {
+        Log.d(TAG, "onResume starts");
+        super.onResume();
+        GetFlickrJsonData getFlickrJsonData = new GetFlickrJsonData(this, "https://api.flickr.com/services/feeds/photos_public.gne", "en-us", true);
+//        getFlickrJsonData.executeOnSameThread("android, nougat");
+        getFlickrJsonData.execute("android,nougat");
+        Log.d(TAG, "onResume ends");
     }
 
     @Override
@@ -57,18 +60,17 @@ public class MainActivity extends AppCompatActivity implements GetRawData.OnDown
             return true;
         }
 
-        Log.d(TAG, "onOptionsItemSelected() returned: returned ");
-
+        Log.d(TAG, "onOptionsItemSelected() returned: returned");
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public  void onDownloadComplete(String data , DownloadStatus status){
-        if(status==DownloadStatus.OK){
-            Log.d(TAG, "DownloadComplete: data is " + data);
-        }else {
-            Log.e(TAG, "DownloadComplete: failed with status " + status );
+    public void onDataAvailable(List<Photo> data, DownloadStatus status) {
+        if (status == DownloadStatus.OK) {
+            Log.d(TAG, "onDataAvailable: data is " + data);
+        } else {
+            // download or processing failed
+            Log.e(TAG, "onDataAvailable failed with status " + status);
         }
-
     }
 }
